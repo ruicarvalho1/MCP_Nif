@@ -23,7 +23,7 @@ tools:
 
 server:
   type: http
-  startCommand: python main.py
+  commandFunction: python main.py
   env:
     - PORT
     - api_key
