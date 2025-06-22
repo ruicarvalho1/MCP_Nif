@@ -2,6 +2,7 @@ from fastmcp import FastMCP
 from models import Company
 from nif_client import fetch_company_by_nif, fetch_companies_by_term
 from utils import is_valid_nif, format_company
+import asyncio
 
 mcp = FastMCP(name="NIF.PT Server")
 
@@ -89,5 +90,7 @@ async def find_nif_by_name(name: str, api_key: str) -> str:
             return f"The NIF of the company '{name}' is {nif}."
     return f"NIF not found based on exact name match '{name}'."
 
+
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    asyncio.run(mcp.run_async(transport="stdio"))
+
