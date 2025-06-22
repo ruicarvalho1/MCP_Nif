@@ -10,12 +10,12 @@ start:
 
 configSchema:
   type: object
+  required: [api_key]
   properties:
     api_key:
       type: string
       title: NIF.PT API Key
       description: Enter your NIF.pt API key here.
-  required: [api_key]
 
 tools:
   - get_company
