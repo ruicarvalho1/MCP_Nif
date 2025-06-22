@@ -3,6 +3,8 @@ from models import Company
 from nif_client import fetch_company_by_nif, fetch_companies_by_term
 from utils import is_valid_nif, format_company
 import asyncio
+import os
+
 
 mcp = FastMCP(name="NIF.PT Server")
 
@@ -92,6 +94,8 @@ async def find_nif_by_name(name: str, api_key: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http", host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
+
 
 
