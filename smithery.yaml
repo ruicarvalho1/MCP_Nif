@@ -1,7 +1,7 @@
 id: ruicarvalho1/mcp_nif-pt
 name: NIF.PT Server
 description: Query companies and NIFs using the NIF.pt API.
-entrypoint: main.py
+entrypoint: app.py
 runtime: python3.11
 
 parameters:
