@@ -1,15 +1,16 @@
 id: ruicarvalho1/mcp_nif-pt
 name: NIF.PT Server
-description: Consulta empresas e NIFs usando a API do NIF.pt. Permite procurar por nome, cidade, CAE e mais.
+description: Query companies and NIFs using the NIF.pt API.
 entrypoint: main.py
 runtime: python3.11
 
 parameters:
   - name: api_key
+    label: NIF.PT API Key
     type: string
     required: true
     secure: true
-    description: A tua chave de API do NIF.pt
+    description: Enter your NIF.pt API key here.
 
 tools:
   - get_company
