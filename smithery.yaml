@@ -1,0 +1,19 @@
+id: ruicarvalho1/mcp_nif-pt
+name: NIF.PT Server
+description: Consulta empresas e NIFs usando a API do NIF.pt. Permite procurar por nome, cidade, CAE e mais.
+entrypoint: main.py
+runtime: python3.11
+
+parameters:
+  - name: api_key
+    type: string
+    required: true
+    secure: true
+    description: A tua chave de API do NIF.pt
+
+tools:
+  - get_company
+  - is_accounting_company
+  - is_active
+  - search_companies_by_name_and_city
+  - find_nif_by_name
