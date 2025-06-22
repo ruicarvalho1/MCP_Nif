@@ -1,10 +1,23 @@
 id: ruicarvalho1/mcp_nif-pt
 name: NIF.PT Server
 description: Query companies and NIFs using the NIF.pt API.
+entrypoint: main.py
+runtime: python3.11
 
-docker:
-  context: .
-  dockerfile: Dockerfile
+parameters:
+  - name: api_key
+    label: NIF.PT API Key
+    type: string
+    required: true
+    secure: true
+    description: Enter your NIF.pt API key here.
+
+tools:
+  - get_company
+  - is_accounting_company
+  - is_active
+  - search_companies_by_name_and_city
+  - find_nif_by_name
 
 startCommand:
   type: stdio
@@ -16,26 +29,9 @@ startCommand:
     })
   configSchema:
     type: object
-    required: [api_key]
     properties:
       api_key:
         type: string
-        title: NIF.PT API Key
-        description: Introduz a tua chave da API do NIF.pt
+    required: [api_key]
   exampleConfig:
-    api_key: "DEMO-123456"
-
-parameters:
-  - name: api_key
-    label: NIF.PT API Key
-    type: string
-    required: true
-    secure: true
-    description: Introduz a tua chave da API do NIF.pt
-
-tools:
-  - get_company
-  - is_accounting_company
-  - is_active
-  - search_companies_by_name_and_city
-  - find_nif_by_name
+    api_key: "your-api-key"
