@@ -2,9 +2,6 @@ id: ruicarvalho1/mcp_nif-pt
 name: NIF.PT Server
 description: Query companies and NIFs using the NIF.pt API.
 
-docker:
-  context: .
-  dockerfile: Dockerfile
 
 parameters:
   - name: api_key
