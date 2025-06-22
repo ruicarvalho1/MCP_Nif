@@ -1,14 +1,41 @@
-# Smithery configuration file: https://smithery.ai/docs/build/project-config
+id: ruicarvalho1/mcp_nif-pt
+name: NIF.PT Server
+description: Query companies and NIFs using the NIF.pt API.
+
+docker:
+  context: .
+  dockerfile: Dockerfile
 
 startCommand:
   type: stdio
-  commandFunction:
-    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
-    |-
-    (config) => ({ command: 'python', args: ['main.py'] })
+  commandFunction: |-
+    (config) => ({
+      command: 'python',
+      args: ['main.py'],
+      env: { api_key: config.api_key }
+    })
   configSchema:
-    # JSON Schema defining the configuration options for the MCP.
     type: object
-    properties: {}
-    description: No configuration needed
-  exampleConfig: {}
+    required: [api_key]
+    properties:
+      api_key:
+        type: string
+        title: NIF.PT API Key
+        description: Introduz a tua chave da API do NIF.pt
+  exampleConfig:
+    api_key: "DEMO-123456"
+
+parameters:
+  - name: api_key
+    label: NIF.PT API Key
+    type: string
+    required: true
+    secure: true
+    description: Introduz a tua chave da API do NIF.pt
+
+tools:
+  - get_company
+  - is_accounting_company
+  - is_active
+  - search_companies_by_name_and_city
+  - find_nif_by_name
