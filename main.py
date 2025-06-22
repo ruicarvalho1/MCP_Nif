@@ -90,8 +90,7 @@ async def find_nif_by_name(name: str, api_key: str) -> str:
     return f"NIF not found based on exact name match '{name}'."
 
 
-import os
-
 if __name__ == "__main__":
-    PORT = int(os.getenv("PORT", 8000))
-    mcp.run(transport="http", host="0.0.0.0", port=PORT)
+    import os
+    mcp.run(transport="stdio") 
+
