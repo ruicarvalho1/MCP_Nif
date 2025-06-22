@@ -4,14 +4,6 @@ description: Query companies and NIFs using the NIF.pt API.
 entrypoint: main.py
 runtime: python3.11
 
-parameters:
-  - name: api_key
-    label: NIF.PT API Key
-    type: string
-    required: true
-    secure: true
-    description: Enter your NIF.pt API key here.
-
 tools:
   - get_company
   - is_accounting_company
@@ -24,14 +16,5 @@ startCommand:
   commandFunction: |-
     (config) => ({
       command: 'python',
-      args: ['main.py'],
-      env: { api_key: config.api_key }
+      args: ['main.py']
     })
-  configSchema:
-    type: object
-    properties:
-      api_key:
-        type: string
-    required: [api_key]
-  exampleConfig:
-    api_key: "your-api-key"
