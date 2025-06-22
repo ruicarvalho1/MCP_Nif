@@ -1,8 +1,10 @@
 id: ruicarvalho1/mcp_nif-pt
 name: NIF.PT Server
 description: Query companies and NIFs using the NIF.pt API.
-entrypoint: main.py
-runtime: python3.11
+
+docker:
+  context: .
+  dockerfile: Dockerfile
 
 parameters:
   - name: api_key
