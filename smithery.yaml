@@ -1,14 +1,21 @@
+version: 1
+
 id: ruicarvalho1/mcp_nif-pt
 name: NIF.PT Server
 description: Query companies and NIFs using the NIF.pt API.
 
-parameters:
-  - name: api_key
-    label: NIF.PT API Key
-    type: string
-    required: true
-    secure: true
-    description: Enter your NIF.pt API key here.
+start:
+  command: ["python", "main.py"]
+  port: 8000
+
+configSchema:
+  type: object
+  properties:
+    api_key:
+      type: string
+      title: NIF.PT API Key
+      description: Enter your NIF.pt API key here.
+  required: [api_key]
 
 tools:
   - get_company
@@ -16,7 +23,3 @@ tools:
   - is_active
   - search_companies_by_name_and_city
   - find_nif_by_name
-
-start:
-  command: ["python", "main.py"]
-  port: 8000
