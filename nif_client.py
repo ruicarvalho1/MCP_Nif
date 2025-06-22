@@ -2,7 +2,6 @@ import httpx
 from urllib.parse import quote
 
 NIFPT_API_URL = "https://www.nif.pt/?json=1&q="
-API_KEY = "98eda15d86624a3b57223c7dde7dba50"
 
 async def fetch_company_by_nif(nif: str):
     url = f"{NIFPT_API_URL}{nif}&key={API_KEY}"

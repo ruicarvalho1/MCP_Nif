@@ -92,5 +92,5 @@ async def find_nif_by_name(name: str, api_key: str) -> str:
 
 
 if __name__ == "__main__":
-    asyncio.run(mcp.run_async(transport="stdio"))
+    mcp.run()
 
