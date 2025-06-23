@@ -5,11 +5,12 @@ from utils import is_valid_nif, format_company
 
 mcp = FastMCP(name="NIF.PT Server")
 
+API_KEY = "98eda15d86624a3b57223c7dde7dba50"
+
 async def get_company_data(nif: str) -> Company | None:
-    api_key = mcp.auth["api_key"]
     if not is_valid_nif(nif):
         return None
-    data = await fetch_company_by_nif(nif, api_key)
+    data = await fetch_company_by_nif(nif, API_KEY)
     record = data.get("records", {}).get(nif)
     if not record:
         return None
@@ -59,9 +60,8 @@ async def is_active(nif: str) -> str:
 
 @mcp.tool()
 async def search_companies_by_name_and_city(name: str, city: str) -> str:
-    api_key = mcp.auth["api_key"]
     term = f"{name} {city}"
-    data = await fetch_companies_by_term(term, api_key)
+    data = await fetch_companies_by_term(term, API_KEY)
     if not data or "records" not in data or not data["records"]:
         return f"No companies found for '{term}'."
     results = []
@@ -83,8 +83,7 @@ async def search_companies_by_name_and_city(name: str, city: str) -> str:
 
 @mcp.tool()
 async def find_nif_by_name(name: str) -> str:
-    api_key = mcp.auth["api_key"]
-    data = await fetch_companies_by_term(name, api_key)
+    data = await fetch_companies_by_term(name, API_KEY)
     if not data or "records" not in data or not data["records"]:
         return f"No companies found for '{name}'."
     for nif, record in data["records"].items():
