@@ -90,7 +90,10 @@ async def find_nif_by_name(name: str, api_key: str) -> str:
     return f"NIF not found based on exact name match '{name}'."
 
 
+@mcp.tool()
+async def get_company_with_token(nif: str, token: str) -> str:
+    return await get_company(nif=nif, api_key=token)
+
 if __name__ == "__main__":
     import os
-    mcp.run(transport="stdio") 
-
+    mcp.run(transport="stdio")
