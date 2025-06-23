@@ -1,13 +1,5 @@
 {
   "auth": {
-    "type": "api_key",
-    "fields": {
-      "api_key": {
-        "type": "string",
-        "description": "Insere a tua chave de API do NIF.pt",
-        "required": true,
-        "format": "password"
-      }
-    }
+    "api_key": "98eda15d86624a3b57223c7dde7dba50"
   }
 }
