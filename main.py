@@ -5,7 +5,8 @@ from utils import is_valid_nif, format_company
 
 mcp = FastMCP(name="NIF.PT Server")
 
-async def get_company_data(nif: str, api_key: str) -> Company | None:
+async def get_company_data(nif: str) -> Company | None:
+    api_key = mcp.config.api_key
     if not is_valid_nif(nif):
         return None
     data = await fetch_company_by_nif(nif, api_key)
@@ -30,20 +31,16 @@ async def get_company_data(nif: str, api_key: str) -> Company | None:
         portugalio=record.get("portugalio")
     )
 
-
-async def get_company_logic(nif: str, api_key: str) -> str:
-    company = await get_company_data(nif, api_key)
+@mcp.tool()
+async def get_company(nif: str) -> str:
+    company = await get_company_data(nif)
     if not company:
         return "Invalid NIF or company not found."
     return format_company(company)
 
-@mcp.tool(use_auth=True)
-async def get_company(nif: str, auth: dict) -> str:
-    return await get_company_logic(nif, auth["api_key"])
-
-@mcp.tool(use_auth=True)
-async def is_accounting_company(nif: str, auth: dict) -> str:
-    company = await get_company_data(nif, auth["api_key"])
+@mcp.tool()
+async def is_accounting_company(nif: str) -> str:
+    company = await get_company_data(nif)
     if not company:
         return "Company not found or invalid NIF."
     keywords = ["accounting", "accountant", "tax consulting", "financial management"]
@@ -51,19 +48,20 @@ async def is_accounting_company(nif: str, auth: dict) -> str:
         return f"The company with NIF {nif} is related to accounting."
     return f"The company with NIF {nif} does not appear to be related to accounting."
 
-@mcp.tool(use_auth=True)
-async def is_active(nif: str, auth: dict) -> str:
-    company = await get_company_data(nif, auth["api_key"])
+@mcp.tool()
+async def is_active(nif: str) -> str:
+    company = await get_company_data(nif)
     if not company:
         return "Company not found or invalid NIF."
     if "active" in company.status.lower():
         return f"The company with NIF {nif} is active."
     return f"The company with NIF {nif} is inactive or closed."
 
-@mcp.tool(use_auth=True)
-async def search_companies_by_name_and_city(name: str, city: str, auth: dict) -> str:
+@mcp.tool()
+async def search_companies_by_name_and_city(name: str, city: str) -> str:
+    api_key = mcp.config.api_key
     term = f"{name} {city}"
-    data = await fetch_companies_by_term(term, auth["api_key"])
+    data = await fetch_companies_by_term(term, api_key)
     if not data or "records" not in data or not data["records"]:
         return f"No companies found for '{term}'."
     results = []
@@ -83,9 +81,10 @@ async def search_companies_by_name_and_city(name: str, city: str, auth: dict) ->
         results.append(format_company(company))
     return "\n\n---\n\n".join(results[:5])
 
-@mcp.tool(use_auth=True)
-async def find_nif_by_name(name: str, auth: dict) -> str:
-    data = await fetch_companies_by_term(name, auth["api_key"])
+@mcp.tool()
+async def find_nif_by_name(name: str) -> str:
+    api_key = mcp.config.api_key
+    data = await fetch_companies_by_term(name, api_key)
     if not data or "records" not in data or not data["records"]:
         return f"No companies found for '{name}'."
     for nif, record in data["records"].items():
