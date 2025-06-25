@@ -117,6 +117,7 @@ To integrate this MCP with Claude Desktop:
 
 
 ## One-Click Installation via Smithery
+(https://smithery.ai/server/@ruicarvalho1/mcp_nif)
 
 With Claude Desktop open, you can install this MCP directly using the Smithery CLI.  
 Just paste the following command into your terminal:
