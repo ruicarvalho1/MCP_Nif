@@ -55,13 +55,6 @@ python main.py
 
 The application uses `transport="stdio"` by default, making it compatible with Claude Desktop or terminal-based environments.
 
-### Using Docker
-
-```bash
-docker build -t nif-mcp .
-docker run -it nif-mcp
-```
-
 ---
 
 ## Usage Examples
@@ -84,6 +77,41 @@ The responses include details such as:
 - CAE (Código de Atividade Económica)
 - Ligações externas (Racius, Portugalio)
 
+---
+
+## Claude Desktop Integration
+
+To integrate this MCP with Claude Desktop:
+
+1. **Install Claude Desktop**  
+   Download and install from: [https://claude.ai/download](https://claude.ai/download)
+
+2. **Open Configuration**  
+   Go to `File > Settings > Developer` and click **Edit Configuration**
+
+3. **Add the MCP server configuration**  
+   In the `claude_desktop_config.json`, insert the following configuration:
+
+```json
+{
+  "mcpServers": {
+    "nif-pt-server": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/ABSOLUTE/PATH/TO/YOUR/PROJECT/FOLDER",
+        "run",
+        "main.py"
+      ]
+    }
+  }
+}
+```
+
+> Replace `/ABSOLUTE/PATH/TO/YOUR/PROJECT/FOLDER` with the actual absolute path where your `main.py` file is located.
+
+4. **Restart Claude Desktop**  
+   After saving the configuration, restart Claude Desktop. Your `nif-pt-server` MCP should now be available in the Claude Desktop interface.
 
 ---
 
