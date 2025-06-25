@@ -115,6 +115,20 @@ To integrate this MCP with Claude Desktop:
 
 ---
 
+
+## One-Click Installation via Smithery
+
+With Claude Desktop open, you can install this MCP directly using the Smithery CLI.  
+Just paste the following command into your terminal:
+
+```bash
+npx -y @smithery/cli@latest install @ruicarvalho1/mcp_nif --client claude
+```
+
+This will automatically install the MCP and register it with Claude Desktop.
+
+---
+
 ## Author
 
 Developed by Rui Carvalho.
@@ -124,3 +138,4 @@ Developed by Rui Carvalho.
 ## License
 
 This project is licensed under the MIT License.
+
