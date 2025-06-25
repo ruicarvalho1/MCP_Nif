@@ -3,9 +3,14 @@ from models import Company
 from nif_client import fetch_company_by_nif, fetch_companies_by_term
 from utils import is_valid_nif, format_company
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
+
 mcp = FastMCP(name="NIF.PT Server")
 
-API_KEY = "98eda15d86624a3b57223c7dde7dba50"
 
 async def get_company_data(nif: str) -> Company | None:
     if not is_valid_nif(nif):
@@ -32,12 +37,14 @@ async def get_company_data(nif: str) -> Company | None:
         portugalio=record.get("portugalio")
     )
 
+
 @mcp.tool()
 async def get_company(nif: str) -> str:
     company = await get_company_data(nif)
     if not company:
         return "Invalid NIF or company not found."
     return format_company(company)
+
 
 @mcp.tool()
 async def is_accounting_company(nif: str) -> str:
@@ -49,6 +56,7 @@ async def is_accounting_company(nif: str) -> str:
         return f"The company with NIF {nif} is related to accounting."
     return f"The company with NIF {nif} does not appear to be related to accounting."
 
+
 @mcp.tool()
 async def is_active(nif: str) -> str:
     company = await get_company_data(nif)
@@ -57,6 +65,7 @@ async def is_active(nif: str) -> str:
     if "active" in company.status.lower():
         return f"The company with NIF {nif} is active."
     return f"The company with NIF {nif} is inactive or closed."
+
 
 @mcp.tool()
 async def search_companies_by_name_and_city(name: str, city: str) -> str:
@@ -81,6 +90,7 @@ async def search_companies_by_name_and_city(name: str, city: str) -> str:
         results.append(format_company(company))
     return "\n\n---\n\n".join(results[:5])
 
+
 @mcp.tool()
 async def find_nif_by_name(name: str) -> str:
     data = await fetch_companies_by_term(name, API_KEY)
@@ -90,6 +100,7 @@ async def find_nif_by_name(name: str) -> str:
         if record.get("title", "").lower() == name.lower():
             return f"The NIF of the company '{name}' is {nif}."
     return f"NIF not found based on exact name match '{name}'."
+
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
