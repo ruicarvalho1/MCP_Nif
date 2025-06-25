@@ -19,14 +19,14 @@ This project implements an intelligent server based on [FastMCP](https://github.
 
 ```
 .
-├── main.py                   # Entrypoint and MCP tool definitions
-├── models.py                 # Pydantic model for the Company entity
-├── nif_client.py             # HTTP client for consuming the NIF.PT API
-├── utils.py                  # Utility functions (validation, formatting)
-├── requirements.txt          # Project dependencies
-├── Dockerfile                # Docker configuration
-├── package.json              # Optional, used by Smithery
-└── .smithery.profile.json    # Smithery integration profile
+├── main.py                   
+├── models.py                
+├── nif_client.py             
+├── utils.py                
+├── requirements.txt          
+├── Dockerfile              
+├── package.json             
+└── .smithery.profile.json    
 ```
 
 ---
